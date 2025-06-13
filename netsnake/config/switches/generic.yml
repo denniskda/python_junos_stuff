@@ -12,7 +12,7 @@ interfaces:
 
 switchvlans:
   - name: vlan0
-    l3-interface: ge-0/0/0
+    l3interface: ge-0/0/0
     id: 1
 virtualchassis:
 services:
