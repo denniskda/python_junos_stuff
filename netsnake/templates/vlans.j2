@@ -1,0 +1,11 @@
+vlans {
+{% for vlan in switchvlans %}
+replace:
+    {{vlan.name}} {
+    vlan-id {{vlan.id}};
+    {% if vlan.l3interface is defined %}
+    l3-interface {{vlan.l3interface}};
+    {% endif %}
+    }
+{% endfor %}
+}

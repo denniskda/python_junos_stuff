@@ -1,0 +1,39 @@
+interfaces {    
+{% for interface in interfaces %}
+{% if interface.vlans is defined %}
+    replace:
+    {{interface.port}} {
+    {% if interface.description is defined %}
+    	description "{{interface.description}}";
+    {% endif %}
+    {% if interface.nativeid is defined %}
+        native-vlan-id {{interface.nativeid}};
+    {%endif%}
+        unit 0 {
+            family {{interface.family}} {
+                interface-mode {{interface.mode}};
+{% for vlan in interface.vlans %}
+                vlan {
+                    members {{ vlan }};
+                }
+                storm-control default;
+{% endfor %}
+            }
+        }
+    }    
+{% else %}
+    replace:
+    {{interface.port}} {
+    {% if interface.description is defined %}
+    	description "{{interface.description}}";
+    {% endif %}
+        unit 0 {
+            family {{interface.family}} {
+                interface-mode access;
+                storm-control default;
+            }
+        }
+    }
+{% endif %}
+{% endfor %}
+}
