@@ -6,7 +6,6 @@ import yaml
 import pathlib
 import re
 import pprint
-import getpass
 
 # Colors of course
 from colorama import Fore
